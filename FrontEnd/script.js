@@ -1,3 +1,4 @@
+
 // Récupération de la galerie d'images depuis l'API
 // et affichage dans la page
 // premier fetch
@@ -108,7 +109,13 @@ function createFilter(categories) {
   });
 }
 
+const token = localStorage.getItem("token");
 
+if (token) {
+  console.log("Utilisateur connecté");
+} else {
+  console.log("Utilisateur non connecté");
+}
 
 
 
