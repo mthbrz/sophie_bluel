@@ -111,7 +111,24 @@ function createFilter(categories) {
 
 const token = localStorage.getItem("token");
 
+const filterDiv = document.querySelector(".filter");
+const modifierLink = document.querySelector(".btn-modifier a");
+modifierLink.style.display = "none"; // Cacher le bouton "modifier" par défaut
+const banner = document.querySelector(".banner");
+banner.style.display = "none"; // Cacher la bannière par défaut
+const logoutLink = document.querySelector(".logout-link");
+logoutLink.style.display = "none"; // Cacher le lien de déconnexion par défaut
+const loginLink = document.querySelector(".login-link");
+
+
 if (token) {
+
+  filterDiv.style.display = "none"; // Supprimer les filtres quand l'utilisateur est connecté
+  modifierLink.style.display = "flex"; // Afficher le bouton "modifier" quand l'utilisateur est connecté
+  banner.style.display = "flex"; // Afficher la bannière quand l'utilisateur est connecté
+  loginLink.style.display = "none"; // Cacher le lien de connexion quand l'utilisateur est connecté
+  logoutLink.style.display = "block"; // Afficher le lien de déconnexion quand l'utilisateur est connecté
+  
   console.log("Utilisateur connecté");
 } else {
   console.log("Utilisateur non connecté");
