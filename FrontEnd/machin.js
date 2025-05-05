@@ -135,3 +135,72 @@ if (error) {
         showError("Erreur lors de la connexion.");
       }
     });
+
+// modale infernale
+
+    const openModal = function (e) {
+      e.preventDefault();
+      const target = document.querySelector(e.target.getAttribute("href"));
+      target.style.display = null;
+    }
+    
+    document.querySelectorAll(".modal").forEach(a => {
+      a.addEventListener("click", openModal);
+      popupModal.style.display = null
+    
+    }
+    )
+    const modal = document.querySelector(".modal");
+    
+    
+    
+    
+    const popupModal = document.querySelector("#modal1");
+    popupModal.addEventListener("click", 
+    
+    popupModal.style.display = null)
+
+
+
+    function fetchWorks () {
+      fetch("http://localhost:5678/api/works")
+      .then(response => response.json())
+      .then(data => {
+        displayGalleryModal(data); 
+        works = data; // pour stocker les données dans la variable works
+        })
+         
+     }
+    
+    fetchWorks();
+    
+    
+    function displayGalleryModal(works) {
+      const galleryModal = document.querySelector(".gallery-modal");
+      galleryModal.innerHTML = ""; // je vide la galerie avant de la remplir avec les data de l'api
+        
+      works.forEach(work => {
+        const figureModal = document.createElement("figure");
+        
+        const imageModal = document.createElement("img");
+        imageModal.src = work.imageUrl;
+        
+        // création de chaque balise supprimée auparavant
+        // modification de la provenance en utilisant le chemin relié à l'api
+        
+          figureModal.appendChild(imageModal);  
+          galleryModal.appendChild(figureModal);
+    
+        // puis on les rattache à l'élément parent
+        });
+      }
+    
+    displayGalleryModal(works); // Appel de la fonction pour afficher la galerie dans la modale
+
+    
+
+
+    window.addEventListener('click', function () {
+      hiddenModal.style.display = "none"; // Cacher la modale
+      }
+    );

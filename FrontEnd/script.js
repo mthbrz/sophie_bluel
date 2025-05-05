@@ -120,6 +120,11 @@ const logoutLink = document.querySelector(".logout-link");
 logoutLink.style.display = "none"; // Cacher le lien de déconnexion par défaut
 const loginLink = document.querySelector(".login-link");
 
+const hiddenModal1 = document.querySelector(".modal1");
+hiddenModal1.style.display = "none"; // Cacher la modale par défaut
+
+const hiddenModal2 = document.querySelector(".modal2");
+hiddenModal2.style.display = "none";
 
 if (token) {
 
@@ -129,18 +134,85 @@ if (token) {
   loginLink.style.display = "none"; // Cacher le lien de connexion quand l'utilisateur est connecté
   logoutLink.style.display = "block"; // Afficher le lien de déconnexion quand l'utilisateur est connecté
   
+  if (logoutLink) {
+    logoutLink.addEventListener("click", function(event) {
+      event.preventDefault(); 
+      localStorage.removeItem("token"); // Supprimer le token du localStorage
+      window.location.href = "index.html"; 
+    });
+  }
   console.log("Utilisateur connecté");
 } else {
   console.log("Utilisateur non connecté");
 }
 
+// modale
+
+// Bouton pour ouvrir la modale 1 Galerie Photo
+const openModalBtn = document.querySelector(".open-modal");
+
+if (token && openModalBtn) {
+  openModalBtn.addEventListener("click", function () {
+    hiddenModal1.style.display = "flex"; // Affiche la modale
+    fetchWorksModal(); // Charge et affiche les projets dans la modale
+  });
+}
+
+// Fonction dédiée à la version modale de fetch
+function fetchWorksModal() {
+  fetch("http://localhost:5678/api/works")
+    .then(response => response.json())
+    .then(data => {
+      displayGalleryModal(data);
+    });
+}
+
+// Affichage des projets dans la galerie modale
+function displayGalleryModal(works) {
+  const galleryModal = document.querySelector(".gallery-modal");
+  galleryModal.innerHTML = "";
+
+  works.forEach(work => {
+    const figureModal = document.createElement("figure");
+    const imageModal = document.createElement("img");
+    imageModal.src = work.imageUrl;
+
+    figureModal.appendChild(imageModal);
+    galleryModal.appendChild(figureModal);
+  });
+}
+
+// Fermeture de la modale au clic sur la croix
+// fonctionne pour les deux modales
+const closeModalBtn = document.querySelector(".close-modal");
+closeModalBtn.addEventListener("click", function () {
+  hiddenModal1.style.display = "none";
+});
+
+// Fermeture des modales si on clique en dehors
+hiddenModal1.addEventListener("click", function (event) {
+  if (event.target === hiddenModal1) {
+    hiddenModal1.style.display = "none";
+  }
+});
+hiddenModal2.addEventListener("click", function (event) {
+  if (event.target === hiddenModal2) {
+    hiddenModal2.style.display = "none";
+  }
+});
+
+// Ouverture de la modale 2 pour ajouter une photo
+const addPhotoBtn = document.querySelector(".add");
+addPhotoBtn.addEventListener("click", function () {
+  hiddenModal2.style.display = "flex"; // Affiche la modale 2
+  hiddenModal1.style.display = "none"; // Cache la modale 1
+});
 
 
+// retour modale 1 depuis modale 2
+const backToModal1Btn = document.querySelector(".back");
+backToModal1Btn.addEventListener("click", function () {
+  hiddenModal2.style.display = "none"; // Cache la modale 2
+  hiddenModal1.style.display = "flex"; // Affiche la modale 1
+});
 
-
-
-
- 
-    
-
-    

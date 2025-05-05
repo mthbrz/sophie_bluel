@@ -66,11 +66,84 @@
       <section id="portfolio">
         <div class="btn-modifier">
           <h2>Mes Projets</h2>
-          <a href="modale infernale">
+          <a href="#modal1" class="open-modal">
             <i class="fa-regular fa-pen-to-square"></i>
             <p>modifier</p>
           </a>
         </div>
+
+        <aside id="modal1" class="modal1" aria-labelledby="title-modal">
+          <div class="modal-content">
+            <div class="close-modal">
+              <a href="index.html"></a>
+                <button class="close">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </a>
+            </div>
+              <h3 class="title-modal">Galerie photo</h3>
+            <div class="gallery-modal">
+              <div class="delete">
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </div>
+              <hr />
+            <div class="add-modal">
+              <a href="#modal2"></a>
+                <button class="add">Ajouter une photo</button>
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <aside id="modal2" class="modal2" aria-labelledby="title-modal">
+
+          <div class="modal-content">              
+            <div class="close-modal2">
+              <a href="#modal1" class="back">
+                  <button class="close">
+                    <i class="fa-solid fa-arrow-left"></i>
+                  </button>
+              </a>
+              <a href="index.html">
+                  <button class="close">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+              </a>                
+            </div>
+
+            <h3>Ajout photo</h3>
+
+            <div class="add-frame">
+              <div class="add-form">            
+                  <i class="fa-regular fa-image"></i>
+                  <a href="#">
+                      <button class="add-image">+ Ajouter photo</button>
+                  </a>
+                  <h4>jpg, png : 4mo max</h4>
+              </div>
+          
+              <div id="#add-picture" class="add-picture">
+                  <label for="title">Titre</label>
+                  <input type="text" name="title" id="title" />
+                  <label for="category">Catégorie</label>
+                  <select name="category" id="category">
+                 
+                  </select>
+              </div>
+            </div>
+                  
+              <hr />
+            <div class="add-modal">
+              <a href="#"></a>
+                <button class="checked">Valider</button>
+              </a>
+            </div>
+          </div>
+        </aside>  
+       
+     
+
         <div class="filter"></div>
 
         <div class="gallery">
