@@ -47,7 +47,7 @@ function displayGallery(works) {
 
 // Fonction pour récupérer les catégories de l'api
 // et créer les boutons de filtre
-// seconde fetch
+// second fetch
 
 
 
@@ -174,13 +174,28 @@ function displayGalleryModal(works) {
 
   works.forEach(work => {
     const figureModal = document.createElement("figure");
+    figureModal.classList.add("modal-figure");
+
     const imageModal = document.createElement("img");
-    imageModal.src = work.imageUrl;
+    imageModal.src = work.imageUrl;  
+
+    const deleteBtn = document.createElement("span");
+    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>'; 
+    deleteBtn.classList.add("delete");
 
     figureModal.appendChild(imageModal);
     galleryModal.appendChild(figureModal);
+    figureModal.appendChild(deleteBtn); 
+
+    deleteBtn.addEventListener("click", function () {
+      deleteWork(work.id);// Appel de la fonction de suppression
+    });
+
   });
+
 }
+
+
 
 // Fermeture de la modale au clic sur la croix
 // fonctionne pour les deux modales
@@ -216,3 +231,35 @@ backToModal1Btn.addEventListener("click", function () {
   hiddenModal1.style.display = "flex"; // Affiche la modale 1
 });
 
+// Suppression des travaux existants
+
+function deleteWork(workId) {
+  // Vérifier si le token est présent
+  const token = localStorage.getItem("token");
+
+
+  fetch(`http://localhost:5678/api/works/${workId}`, {
+    method: "DELETE",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+
+      works = works.filter(work => work.id !== workId);
+      // Mise à jour du tableau avec filter pour ne garder
+      // que les travaux avec un id différent de celui supprimé 
+
+      displayGallery(works); // Mise à jour de la galerie principale       
+      displayGalleryModal(works); // Mise à jour de la galerie modale
+     
+    } else {
+      console.error("Erreur lors de la suppression du projet");
+    }
+  })
+  .catch(error => {
+    console.error("Erreur réseau :", error);
+  });
+}

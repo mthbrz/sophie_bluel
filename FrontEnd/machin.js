@@ -204,3 +204,52 @@ if (error) {
       hiddenModal.style.display = "none"; // Cacher la modale
       }
     );
+
+
+    
+    // deleteBtn.addEventListener("click", function () {
+    //   // Suppression du projet via l'API
+    // });
+      // fetch(`http://localhost:5678/api/works/${work.id}`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // })
+      // .then(response => {
+      //   if (response.ok) {
+      //     // Supprimer l'élément de la galerie modale
+      //     figureModal.remove();
+      //     // Mettre à jour la galerie principale
+      //     fetchWorks(); // Recharger la galerie principale
+      //   } else {
+      //     console.error("Erreur lors de la suppression du projet");
+      //   }
+      // })
+      // .catch(error => {
+      //   console.error("Erreur réseau :", error);
+      // });
+
+
+      function deleteWork(workId) {
+        fetch(`http://localhost:5678/api/works/${workId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            // Supprimer l'élément de la galerie
+            const workElement = document.querySelector(`.modal-figure[data-id="${workId}"]`);
+            if (workElement) {
+              workElement.remove();
+            }
+          } else {
+            console.error("Erreur lors de la suppression du travail");
+          }
+        })
+        .catch(error => console.error("Erreur réseau :", error));
+      }
