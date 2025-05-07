@@ -303,7 +303,7 @@ button {
   padding-right: 20px;
 }
 
-.active {
+.active-filter {
   background-color: #1d6154;
   color: white;
 }

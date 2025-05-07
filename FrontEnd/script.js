@@ -77,7 +77,7 @@ function createFilter(categories) {
     allButtons.forEach(button => button.classList.remove("active"));
 
     // Activer uniquement ce bouton
-    allBtn.classList.add("active");
+    allBtn.classList.add("active-filter");
 
     // Afficher tous les projets
     displayGallery(works);
@@ -95,10 +95,10 @@ function createFilter(categories) {
     btn.addEventListener("click", () => {
       // Retirer "active" de tous les boutons
       const allButtons = document.querySelectorAll(".filter button");
-      allButtons.forEach(button => button.classList.remove("active"));
+      allButtons.forEach(button => button.classList.remove("active-filter"));
 
       // Activer uniquement ce bouton
-      btn.classList.add("active");
+      btn.classList.add("active-filter");
 
       // Filtrer les projets et les afficher
       const filteredWorks = works.filter(work => work.categoryId === category.id);
