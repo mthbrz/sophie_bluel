@@ -253,3 +253,86 @@ if (error) {
         })
         .catch(error => console.error("Erreur réseau :", error));
       }
+      const form = document.querySelector("#add-project-form");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+      
+        const formData = new FormData(form); // Récupère les données du formulaire
+      
+        fetch("http://localhost:5678/api/works", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          },
+          body: formData // Envoie les données du formulaire
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.json(); // Convertit la réponse en JSON
+          } else {
+            throw new Error("Erreur lors de l'ajout du projet");
+          }
+        })
+        .then(data => {
+          console.log(data); // Affiche les données du nouveau projet dans la console
+          hiddenModal2.style.display = "none"; // Cache la modale d'ajout de projet
+          fetchWorks(); // Recharge la galerie principale pour afficher le nouveau projet
+        })
+        .catch(error => {
+          console.error("Erreur réseau :", error);
+        });
+      })
+
+
+// const form = document.getElementById("add-project-form");
+
+// form.addEventListener("submit", function (e) {
+//   e.preventDefault(); // empêcher le rechargement
+//   const formData = new FormData(form);
+
+//   fetch("http://localhost:5678/api/works", {
+//     method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     },
+//     body: formData
+//   })
+//   .then(response => {
+//     if (response.ok) {
+//       console.log("Projet ajouté !");
+//       // mise à jour de la galerie ici
+//     } else {
+//       console.error("Erreur d’envoi");
+//     }
+//   });
+// });
+
+
+
+// form.addEventListener("submit", function (e) {
+//   e.preventDefault(); // empêcher le rechargement
+//   const formData = new FormData(form);
+
+//   fetch("http://localhost:5678/api/works", {
+//     method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     },
+//     body: formData
+//   })
+//   .then(response => {
+//     if (response.ok) {
+//       console.log("Projet ajouté !");
+//       // mise à jour de la galerie ici
+//     } else {
+//       console.error("Erreur d’envoi");
+//     }
+//   });
+// });
+
+
+
+
+
+

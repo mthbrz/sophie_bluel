@@ -110,31 +110,29 @@
 
             <h3>Ajout photo</h3>
 
+          <form id="add-project-form" enctype="multipart/form-data">
             <div class="add-frame">
-              <div class="add-form">            
+              <div class="add-form">      
+                <input type="file" name="image" id="image" accept="image/png, image/jpeg" required />
+                <div id="clickable-area" class="clickable-area">
                   <i class="fa-regular fa-image"></i>
-                  <a href="#">
-                      <button class="add-image">+ Ajouter photo</button>
-                  </a>
+                  <button type="button" class="add-image">+ Ajouter photo</button>
                   <h4>jpg, png : 4mo max</h4>
+                </div> 
               </div>
-          
               <div id="#add-picture" class="add-picture">
                   <label for="title">Titre</label>
-                  <input type="text" name="title" id="title" />
+                  <input type="text" name="title" id="title" required/>
                   <label for="category">Catégorie</label>
-                  <select name="category" id="category">
-                 
+                  <select name="category" id="category" required>
                   </select>
               </div>
             </div>
-                  
               <hr />
             <div class="add-modal">
-              <a href="#"></a>
-                <button class="checked">Valider</button>
-              </a>
+              <button type="submit" class="inactive" id="submit-btn">Valider</button>
             </div>
+          </form>
           </div>
         </aside>  
        

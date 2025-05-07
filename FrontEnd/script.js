@@ -218,10 +218,28 @@ hiddenModal2.addEventListener("click", function (event) {
 
 // Ouverture de la modale 2 pour ajouter une photo
 const addPhotoBtn = document.querySelector(".add");
+
 addPhotoBtn.addEventListener("click", function () {
   hiddenModal2.style.display = "flex"; // Affiche la modale 2
   hiddenModal1.style.display = "none"; // Cache la modale 1
+
+  // Réinitialiser le formulaire à chaque ouverture de la modale 2
+  form.reset();
+
+  // Réinitialiser l'aperçu d'image
+  clickableArea.innerHTML = `<i class="fa-regular fa-image"></i>
+  <button type="button" class="add-image">+ Ajouter photo</button>
+  <h4>jpg, png : 4mo max</h4>`;
+
+  // Réinitialiser l'état du bouton "Valider"
+  submitBtn.classList.remove("active");
+  submitBtn.classList.add("inactive");
+
+  // Réinitialiser la valeur du select
+  categoryInput.value = ""; 
+
 });
+
 
 
 // retour modale 1 depuis modale 2
@@ -263,3 +281,146 @@ function deleteWork(workId) {
     console.error("Erreur réseau :", error);
   });
 }
+
+
+// Ajout d'un nouveau projet
+// Récupération des catégories pour le formulaire d'ajout de projet
+
+ function fetchCategoriesForm() {
+   fetch("http://localhost:5678/api/categories")
+     .then(response => response.json())
+     .then(categories => {
+       const select = document.getElementById("category");
+
+       const emptyOption = document.createElement("option");
+      emptyOption.value = ""; // Valeur vide pour l'option par défaut
+      emptyOption.disabled = true;
+      emptyOption.selected = true;
+      select.appendChild(emptyOption);
+
+       categories.forEach(category => {
+        
+         const option = document.createElement("option");
+         option.value = category.id;  
+         option.textContent = category.name;   
+         select.appendChild(option);
+       });
+     })
+    
+ }
+
+ fetchCategoriesForm();
+
+// Récupération du formulaire d'ajout de projet
+// et ajout d'un événement pour la soumission
+
+const form = document.getElementById("add-project-form");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+  const formData = new FormData(form);
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
+  })
+  .then(response => {
+    return response.json();
+  })
+  .then(newWork => {
+    console.log("Projet ajouté avec succès :", newWork);
+
+    works.push(newWork); 
+
+    displayGallery(works);  
+    displayGalleryModal(works);   
+
+    form.reset(); 
+
+    // Remettre l'affichage par défaut de la zone cliquable
+clickableArea.innerHTML = `<i class="fa-regular fa-image"></i>
+<button type="button" class="add-image">+ Ajouter photo</button>
+<h4>jpg, png : 4mo max</h4>
+`;
+
+  // Remettre l'affichage par défaut du bouton valider
+submitBtn.classList.remove("active");
+submitBtn.classList.add("inactive");
+
+// Remettre l'affichage par défaut de la zone catégorie
+categoryInput.value = ""; 
+
+  })
+  .catch(error => {
+    console.error("Erreur :", error);
+  });
+});
+
+// Affichage de l'image sélectionnée dans la zone cliquable
+
+const input = document.getElementById("image");
+const clickableArea = document.getElementById("clickable-area");
+
+clickableArea.addEventListener("click", () => {
+  input.click(); 
+});
+
+input.addEventListener("change", () => {
+  const file = input.files[0];
+
+  if (file) {
+    const reader = new FileReader(); 
+// outil js qui permet de lire un fichier local (côté client)
+// sans l’envoyer sur le serveur
+
+    reader.onload = function (e) {
+      // Créer un élément image
+      const imagePreview = document.createElement("img");
+      imagePreview.src = e.target.result;
+      imagePreview.alt = "Aperçu";
+      imagePreview.classList.add("image-preview");
+
+      // Vider la zone clickable et y insérer l'image
+      clickableArea.innerHTML = ""; 
+      clickableArea.appendChild(imagePreview);
+    };
+
+    reader.readAsDataURL(file); // Lire l'image pour la prévisualiser
+   // demande à FileReader de lire le fichier comme une URL
+   // ce qui déclenche l'événement reader.onload
+
+  }
+});
+
+// Supprime l’image prévisualisée
+const previewImg = clickableArea.querySelector("img");
+if (previewImg) {
+  previewImg.remove();
+}
+
+
+// Modification du bouton valider
+
+const imageInput = document.getElementById("image");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("category");
+const submitBtn = document.getElementById("submit-btn");
+
+function checkFormValidity() {
+  const imageSelected = imageInput.files.length > 0;
+  const titleSelected = titleInput.value.trim() !== "";
+  const categorySelected = categoryInput.value !== "";
+
+  if (imageSelected && titleSelected && categorySelected) {
+    submitBtn.classList.remove("inactive");
+    submitBtn.classList.add("active");
+  } }
+  // On surveille tous les champs
+imageInput.addEventListener("change", checkFormValidity);
+titleInput.addEventListener("input", checkFormValidity);
+categoryInput.addEventListener("change", checkFormValidity);
