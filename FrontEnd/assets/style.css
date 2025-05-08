@@ -380,7 +380,16 @@ hr {
   border: none;
   margin: 0;
 }
-
+.close-modal-2 {
+  color: rgba(0, 0, 0, 1);
+  border: none;
+  margin: 0;
+}
+.back {
+  color: rgba(0, 0, 0, 1);
+  border: none;
+  margin: 0;
+}
 .add-modal {
   display: flex;
   justify-content: center;

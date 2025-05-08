@@ -74,7 +74,7 @@ function createFilter(categories) {
   allBtn.addEventListener("click", () => {
     // Retirer "active" de tous les boutons
     const allButtons = document.querySelectorAll(".filter button");
-    allButtons.forEach(button => button.classList.remove("active"));
+    allButtons.forEach(button => button.classList.remove("active-filter"));
 
     // Activer uniquement ce bouton
     allBtn.classList.add("active-filter");
@@ -199,9 +199,15 @@ function displayGalleryModal(works) {
 
 // Fermeture de la modale au clic sur la croix
 // fonctionne pour les deux modales
-const closeModalBtn = document.querySelector(".close-modal");
+
+const closeModalBtn = document.querySelector(".close");
 closeModalBtn.addEventListener("click", function () {
   hiddenModal1.style.display = "none";
+});
+
+const closeModal2Btn = document.querySelector(".close-modal-2");
+closeModal2Btn.addEventListener("click", function () {
+  hiddenModal2.style.display = "none";
 });
 
 // Fermeture des modales si on clique en dehors
@@ -412,10 +418,10 @@ const categoryInput = document.getElementById("category");
 const submitBtn = document.getElementById("submit-btn");
 
 function checkFormValidity() {
-  const imageSelected = imageInput.files.length > 0;
-  const titleSelected = titleInput.value.trim() !== "";
+  const imageSelected = imageInput.value !== "";
+  const titleSelected = titleInput.value.length > 3;
   const categorySelected = categoryInput.value !== "";
-
+console.log(titleSelected);
   if (imageSelected && titleSelected && categorySelected) {
     submitBtn.classList.remove("inactive");
     submitBtn.classList.add("active");
@@ -424,3 +430,7 @@ function checkFormValidity() {
 imageInput.addEventListener("change", checkFormValidity);
 titleInput.addEventListener("input", checkFormValidity);
 categoryInput.addEventListener("change", checkFormValidity);
+
+
+const disabledEmptyOption = document.querySelector(".empty-option");
+disabledEmptyOption.remove(); // Supprime l'option vide

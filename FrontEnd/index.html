@@ -40,7 +40,7 @@
       </nav>
     </header>
     <main>
-      <section id="introduction">
+      <div id="introduction">
         <figure>
           <img src="./assets/images/sophie-bluel.png" alt="" />
         </figure>
@@ -62,7 +62,7 @@
             : architecte DPLG, décorateur(trice)
           </p>
         </article>
-      </section>
+      </div>
       <section id="portfolio">
         <div class="btn-modifier">
           <h2>Mes Projets</h2>
@@ -72,71 +72,74 @@
           </a>
         </div>
 
-        <aside id="modal1" class="modal1" aria-labelledby="title-modal">
+        <aside id="modal1" class="modal1" aria-labelledby="title-modal-1">
           <div class="modal-content">
             <div class="close-modal">
-              <a href="index.html"></a>
-                <button class="close">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-              </a>
+              <button class="close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
-              <h3 class="title-modal">Galerie photo</h3>
+            <h3 id="title-modal-1" class="title-modal">Galerie photo</h3>
             <div class="gallery-modal"></div>
-              <hr />
+            <hr />
             <div class="add-modal">
               <a href="#modal2"></a>
-                <button class="add">Ajouter une photo</button>
-              </a>
+              <button class="add">Ajouter une photo</button>
             </div>
           </div>
         </aside>
 
-        <aside id="modal2" class="modal2" aria-labelledby="title-modal">
-
-          <div class="modal-content">              
+        <aside id="modal2" class="modal2" aria-labelledby="title-modal-2">
+          <div class="modal-content">
             <div class="close-modal2">
               <a href="#modal1" class="back">
-                  <button class="close">
-                    <i class="fa-solid fa-arrow-left"></i>
-                  </button>
+                <i class="fa-solid fa-arrow-left"></i>
               </a>
-              <a href="index.html">
-                  <button class="close">
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
-              </a>                
+              <button class="close-modal-2">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
 
-            <h3>Ajout photo</h3>
+            <h3 id="title-modal-2">Ajout photo</h3>
 
-          <form id="add-project-form" enctype="multipart/form-data">
-            <div class="add-frame">
-              <div class="add-form">      
-                <input type="file" name="image" id="image" accept="image/png, image/jpeg" required />
-                <div id="clickable-area" class="clickable-area">
-                  <i class="fa-regular fa-image"></i>
-                  <button type="button" class="add-image">+ Ajouter photo</button>
-                  <h4>jpg, png : 4mo max</h4>
-                </div> 
-              </div>
-              <div id="#add-picture" class="add-picture">
+            <form id="add-project-form" enctype="multipart/form-data">
+              <div class="add-frame">
+                <div class="add-form">
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    accept="image/png, image/jpeg"
+                    required
+                  />
+                  <div id="clickable-area" class="clickable-area">
+                    <i class="fa-regular fa-image"></i>
+                    <button type="button" class="add-image">
+                      + Ajouter photo
+                    </button>
+                    <h4>jpg, png : 4mo max</h4>
+                  </div>
+                </div>
+                <div id="#add-picture" class="add-picture">
                   <label for="title">Titre</label>
-                  <input type="text" name="title" id="title" required/>
+                  <input type="text" name="title" id="title" required />
                   <label for="category">Catégorie</label>
                   <select name="category" id="category" required>
+                    <option value="" class="empty-option" disabled selected>
+                      Choisir une catégorie
+                    </option>
                   </select>
+                </div>
               </div>
-            </div>
               <hr />
-            <div class="add-modal">
-              <button type="submit" class="inactive" id="submit-btn">Valider</button>
-            </div>
-          </form>
+              <div class="add-modal">
+                <button type="submit" class="inactive" id="submit-btn">
+                  Valider
+                </button>
+              </div>
+            </form>
           </div>
-        </aside>  
-       
-     
+        </aside>
 
         <div class="filter"></div>
 
